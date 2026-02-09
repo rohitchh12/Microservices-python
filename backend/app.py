@@ -3,6 +3,8 @@ import os
 from pymongo.mongo_client import MongoClient
 from dotenv import load_dotenv
 
+import json
+
 load_dotenv()
 
 MONGO_URI = os.getenv('MONGO_URI')
@@ -11,6 +13,14 @@ db = client.test2
 collection = db['flask-t']
 
 app = Flask(__name__)
+
+
+
+@app.route('/api', methods=['GET'])
+def api():
+    with open('api.json') as f:
+        data = json.load(f)
+    return data
 
 @app.route('/submit', methods = ['POST'])
 def submit():
